@@ -16,14 +16,20 @@ API编辑 [Swagger](https://editor.swagger.io/)
 **领域建模**
 ![0](./img/lyjm.png)
 
-**API**
-[READAPI](./go-client/README.md)
+**API**  
+[readAPI](./go-client/README.md)
 
 ---
 
 ### 客户端
-VUE.js 设计
+VUE.js 设计  
 
-### 服务端 & 数据库
-go REST 风格  
-boltDB 数据库
+
+### 服务端 
+go REST 风格 
+
+### 数据库
+boltDB 数据库  
+
+ER 图
+![ER](./img/er.png)
