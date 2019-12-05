@@ -10,7 +10,13 @@
 
 package swagger
 
-type Tag struct {
+type Review struct {
+
 	Id int32 `json:"id,omitempty"`
-	Name string `json:"name,omitempty"`
+
+	Userid int32 `json:"userid,omitempty"`
+
+	Articleid int32 `json:"articleid,omitempty"`
+
+	Content string `json:"content,omitempty"`
 }

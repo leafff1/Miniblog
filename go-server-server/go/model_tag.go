@@ -10,7 +10,9 @@
 
 package swagger
 
-type UserLogin struct {
-	Username string `json:"username,omitempty"`
-	Password string `json:"password,omitempty"`
+type Tag struct {
+
+	Id int32 `json:"id,omitempty"`
+
+	Name string `json:"name,omitempty"`
 }

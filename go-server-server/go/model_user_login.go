@@ -10,7 +10,9 @@
 
 package swagger
 
-type Review struct {
-	Id int32 `json:"id,omitempty"`
-	Publish string `json:"publish,omitempty"`
+type UserLogin struct {
+
+	Username string `json:"username,omitempty"`
+
+	Password string `json:"password,omitempty"`
 }

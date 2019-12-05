@@ -316,10 +316,14 @@ definitions:
     example:
       date: "date"
       review:
-      - publish: "publish"
+      - articleid: 2
         id: 5
-      - publish: "publish"
+        userid: 5
+        content: "content"
+      - articleid: 2
         id: 5
+        userid: 5
+        content: "content"
       id: 0
       tag:
       - name: "name"
@@ -350,11 +354,17 @@ definitions:
     properties:
       id:
         type: "integer"
-      publish:
+      userid:
+        type: "integer"
+      articleid:
+        type: "integer"
+      content:
         type: "string"
     example:
-      publish: "publish"
+      articleid: 2
       id: 5
+      userid: 5
+      content: "content"
   UserLogin:
     type: "object"
     properties:
