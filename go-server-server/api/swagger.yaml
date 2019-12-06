@@ -200,14 +200,14 @@ paths:
       parameters:
       - name: "query"
         in: "query"
-        description: "Created user object"
+        description: "User login method"
         required: true
         x-exportParamName: "Query"
       responses:
         "200":
           description: "Successful operation"
         "403":
-          description: "Username repeat"
+          description: "Username or password wrong"
     post:
       tags:
       - "user"
