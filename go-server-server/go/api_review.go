@@ -10,9 +10,11 @@
 
 package swagger
 
-type UserLogin struct {
+import (
+	"net/http"
+)
 
-	Username string `json:"username,omitempty"`
-
-	Password string `json:"password,omitempty"`
+func CreateReview(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.WriteHeader(http.StatusOK)
 }

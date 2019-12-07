@@ -14,7 +14,9 @@ tags:
 - name: "user"
   description: "Operations about user"
 - name: "article"
-  description: "Everything about article"
+  description: "Operations about article"
+- name: "review"
+  description: "Operations about review"
 schemes:
 - "http"
 paths:
@@ -198,11 +200,18 @@ paths:
       produces:
       - "application/json"
       parameters:
-      - name: "query"
+      - name: "username"
         in: "query"
         description: "User login method"
         required: true
-        x-exportParamName: "Query"
+        type: "string"
+        x-exportParamName: "Username"
+      - name: "password"
+        in: "query"
+        description: "User login method"
+        required: true
+        type: "string"
+        x-exportParamName: "Password"
       responses:
         "200":
           description: "Successful operation"
@@ -269,6 +278,37 @@ paths:
           description: "OK"
           schema:
             $ref: "#/definitions/User"
+  /api/review/{articleID}/{userID}:
+    post:
+      tags:
+      - "review"
+      summary: "Submit review"
+      operationId: "createReview"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userID"
+        in: "path"
+        description: "The id of user."
+        required: true
+        type: "integer"
+        x-exportParamName: "UserID"
+      - name: "articleID"
+        in: "path"
+        description: "The id of article."
+        required: true
+        type: "integer"
+        x-exportParamName: "ArticleID"
+      - in: "body"
+        name: "content"
+        description: "The content of review."
+        required: true
+        schema:
+          $ref: "#/definitions/Review"
+        x-exportParamName: "Content"
+      responses:
+        "200":
+          description: "OK"
 definitions:
   User:
     type: "object"
@@ -288,7 +328,7 @@ definitions:
     example:
       password: "password"
       nickname: "nickname"
-      id: 1
+      id: 6
       introduction: "introduction"
       email: "email"
       username: "username"
@@ -316,25 +356,31 @@ definitions:
     example:
       date: "date"
       review:
-      - articleid: 2
-        id: 5
-        userid: 5
+      - user:
+          password: "password"
+          nickname: "nickname"
+          id: 6
+          introduction: "introduction"
+          email: "email"
+          username: "username"
         content: "content"
-      - articleid: 2
-        id: 5
-        userid: 5
+      - user:
+          password: "password"
+          nickname: "nickname"
+          id: 6
+          introduction: "introduction"
+          email: "email"
+          username: "username"
         content: "content"
       id: 0
       tag:
       - name: "name"
-        id: 6
       - name: "name"
-        id: 6
       title: "title"
       user:
         password: "password"
         nickname: "nickname"
-        id: 1
+        id: 6
         introduction: "introduction"
         email: "email"
         username: "username"
@@ -342,33 +388,23 @@ definitions:
   Tag:
     type: "object"
     properties:
-      id:
-        type: "integer"
       name:
         type: "string"
     example:
       name: "name"
-      id: 6
   Review:
     type: "object"
     properties:
-      id:
-        type: "integer"
-      userid:
-        type: "integer"
-      articleid:
-        type: "integer"
+      user:
+        $ref: "#/definitions/User"
       content:
         type: "string"
     example:
-      articleid: 2
-      id: 5
-      userid: 5
+      user:
+        password: "password"
+        nickname: "nickname"
+        id: 6
+        introduction: "introduction"
+        email: "email"
+        username: "username"
       content: "content"
-  UserLogin:
-    type: "object"
-    properties:
-      username:
-        type: "string"
-      password:
-        type: "string"

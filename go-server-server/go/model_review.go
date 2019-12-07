@@ -12,11 +12,7 @@ package swagger
 
 type Review struct {
 
-	Id int32 `json:"id,omitempty"`
-
-	Userid int32 `json:"userid,omitempty"`
-
-	Articleid int32 `json:"articleid,omitempty"`
+	User *User `json:"user,omitempty"`
 
 	Content string `json:"content,omitempty"`
 }

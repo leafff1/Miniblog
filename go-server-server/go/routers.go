@@ -106,6 +106,13 @@ var routes = Routes{
 	},
 
 	Route{
+		"CreateReview",
+		strings.ToUpper("Post"),
+		"/api/review/{articleID}/{userID}",
+		CreateReview,
+	},
+
+	Route{
 		"CreateUser",
 		strings.ToUpper("Post"),
 		"/api/user/",
