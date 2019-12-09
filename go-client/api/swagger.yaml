@@ -1,0 +1,428 @@
+---
+swagger: "2.0"
+info:
+  description: "This is a mini blog."
+  version: "1.0.0"
+  title: "Blog API"
+  termsOfService: "https://github.com/Sevice-Computing"
+  contact:
+    email: "chris-ju@qq.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+tags:
+- name: "user"
+  description: "Operations about user"
+- name: "article"
+  description: "Operations about article"
+- name: "review"
+  description: "Operations about review"
+schemes:
+- "http"
+paths:
+  /api/article/:
+    get:
+      tags:
+      - "article"
+      summary: "Get all articles"
+      operationId: "getAllArticle"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "page"
+        in: "query"
+        description: "The page of article."
+        required: true
+        type: "integer"
+        x-exportParamName: "Page"
+      responses:
+        "200":
+          description: "Successful"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Article"
+        "406":
+          description: "Authentication failed"
+    post:
+      tags:
+      - "article"
+      summary: "Add a new article"
+      operationId: "addArticle"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "The body of article."
+        required: true
+        schema:
+          $ref: "#/definitions/Article"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: "Successful"
+          schema: {}
+        "403":
+          description: "No permission"
+        "405":
+          description: "Invalid input"
+        "406":
+          description: "Authentication failed"
+  /api/article/{articleID}:
+    get:
+      tags:
+      - "article"
+      summary: "Get article by ID"
+      operationId: "getArticleByID"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "articleID"
+        in: "path"
+        description: "The id of article."
+        required: true
+        type: "integer"
+        x-exportParamName: "ArticleID"
+      responses:
+        "200":
+          description: "Successful"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Article"
+        "406":
+          description: "Authentication failed"
+    put:
+      tags:
+      - "article"
+      summary: "Update an existing article"
+      operationId: "updateArticle"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "articleID"
+        in: "path"
+        description: "The id of article."
+        required: true
+        type: "integer"
+        x-exportParamName: "ArticleID"
+      - in: "body"
+        name: "body"
+        description: "The body of article."
+        required: true
+        schema:
+          $ref: "#/definitions/Article"
+        x-exportParamName: "Body"
+      responses:
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Article not found"
+        "405":
+          description: "Validation exception"
+    delete:
+      tags:
+      - "article"
+      summary: "Delete an existing article"
+      operationId: "deleteArticle"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "articleID"
+        in: "path"
+        description: "The id of article."
+        required: true
+        type: "integer"
+        x-exportParamName: "ArticleID"
+      responses:
+        "400":
+          description: "Invalid ID supplied"
+        "403":
+          description: "No permission"
+        "404":
+          description: "Article not found"
+        "405":
+          description: "Validation exception"
+  /api/article/tag/tag:
+    get:
+      tags:
+      - "article"
+      summary: "Get article by Tag"
+      operationId: "getArticleByTag"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "tag"
+        in: "query"
+        description: "The tagid of article."
+        required: true
+        type: "string"
+        x-exportParamName: "Tag"
+      - name: "page"
+        in: "query"
+        description: "The page of article."
+        required: true
+        type: "integer"
+        x-exportParamName: "Page"
+      responses:
+        "200":
+          description: "Successful"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Article"
+        "404":
+          description: "Tag is invalid"
+        "406":
+          description: "Authentication failed"
+  /api/article/user/{userID}:
+    get:
+      tags:
+      - "article"
+      summary: "Get article by User"
+      operationId: "getArticleByUser"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userID"
+        in: "path"
+        description: "The userid of article."
+        required: true
+        type: "integer"
+        x-exportParamName: "UserID"
+      - name: "page"
+        in: "query"
+        description: "The page of article."
+        required: true
+        type: "integer"
+        x-exportParamName: "Page"
+      responses:
+        "200":
+          description: "Successful"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Article"
+        "404":
+          description: "User is invalid"
+        "406":
+          description: "Authentication failed"
+  /api/user/:
+    get:
+      tags:
+      - "user"
+      summary: "Query user"
+      description: "This can only be done by the logged in user."
+      operationId: "queryUser"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "username"
+        in: "query"
+        description: "User login method"
+        required: true
+        type: "string"
+        x-exportParamName: "Username"
+      - name: "password"
+        in: "query"
+        description: "User login method"
+        required: true
+        type: "string"
+        x-exportParamName: "Password"
+      responses:
+        "200":
+          description: "Successful operation"
+        "403":
+          description: "Username or password wrong"
+    post:
+      tags:
+      - "user"
+      summary: "Create user"
+      description: "This can only be done by the logged in user."
+      operationId: "createUser"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Created user object"
+        required: true
+        schema:
+          $ref: "#/definitions/User"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: "Successful operation"
+        "403":
+          description: "Username repeat"
+    put:
+      tags:
+      - "user"
+      summary: "Update user"
+      operationId: "updateUser"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Update user object"
+        required: true
+        schema:
+          $ref: "#/definitions/User"
+        x-exportParamName: "Body"
+      responses:
+        "200":
+          description: "Successful operation"
+        "403":
+          description: "No permission"
+  /api/user/{userID}:
+    get:
+      tags:
+      - "user"
+      summary: "Get user by userid"
+      operationId: "getUserbyID"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userID"
+        in: "path"
+        description: "The id of user."
+        required: true
+        type: "integer"
+        x-exportParamName: "UserID"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            $ref: "#/definitions/User"
+  /api/review/{articleID}/{userID}:
+    post:
+      tags:
+      - "review"
+      summary: "Submit review"
+      operationId: "createReview"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "userID"
+        in: "path"
+        description: "The id of user."
+        required: true
+        type: "integer"
+        x-exportParamName: "UserID"
+      - name: "articleID"
+        in: "path"
+        description: "The id of article."
+        required: true
+        type: "integer"
+        x-exportParamName: "ArticleID"
+      - in: "body"
+        name: "content"
+        description: "The content of review."
+        required: true
+        schema:
+          $ref: "#/definitions/Review"
+        x-exportParamName: "Content"
+      responses:
+        "200":
+          description: "OK"
+definitions:
+  User:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      username:
+        type: "string"
+      nickname:
+        type: "string"
+      introduction:
+        type: "string"
+      email:
+        type: "string"
+      password:
+        type: "string"
+    example:
+      password: "password"
+      nickname: "nickname"
+      id: 6
+      introduction: "introduction"
+      email: "email"
+      username: "username"
+  Article:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      title:
+        type: "string"
+      content:
+        type: "string"
+      date:
+        type: "string"
+      tag:
+        type: "array"
+        items:
+          $ref: "#/definitions/Tag"
+      user:
+        $ref: "#/definitions/User"
+      review:
+        type: "array"
+        items:
+          $ref: "#/definitions/Review"
+    example:
+      date: "date"
+      review:
+      - user:
+          password: "password"
+          nickname: "nickname"
+          id: 6
+          introduction: "introduction"
+          email: "email"
+          username: "username"
+        content: "content"
+      - user:
+          password: "password"
+          nickname: "nickname"
+          id: 6
+          introduction: "introduction"
+          email: "email"
+          username: "username"
+        content: "content"
+      id: 0
+      tag:
+      - name: "name"
+      - name: "name"
+      title: "title"
+      user:
+        password: "password"
+        nickname: "nickname"
+        id: 6
+        introduction: "introduction"
+        email: "email"
+        username: "username"
+      content: "content"
+  Tag:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+    example:
+      name: "name"
+  Review:
+    type: "object"
+    properties:
+      user:
+        $ref: "#/definitions/User"
+      content:
+        type: "string"
+    example:
+      user:
+        password: "password"
+        nickname: "nickname"
+        id: 6
+        introduction: "introduction"
+        email: "email"
+        username: "username"
+      content: "content"
