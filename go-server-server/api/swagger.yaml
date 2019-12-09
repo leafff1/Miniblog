@@ -28,7 +28,13 @@ paths:
       operationId: "getAllArticle"
       produces:
       - "application/json"
-      parameters: []
+      parameters:
+      - name: "page"
+        in: "query"
+        description: "The page of article."
+        required: true
+        type: "integer"
+        x-exportParamName: "Page"
       responses:
         "200":
           description: "Successful"
@@ -138,7 +144,7 @@ paths:
           description: "Article not found"
         "405":
           description: "Validation exception"
-  /api/article/tag/{tagID}:
+  /api/article/tag/tag:
     get:
       tags:
       - "article"
@@ -147,12 +153,18 @@ paths:
       produces:
       - "application/json"
       parameters:
-      - name: "tagID"
-        in: "path"
+      - name: "tag"
+        in: "query"
         description: "The tagid of article."
         required: true
+        type: "string"
+        x-exportParamName: "Tag"
+      - name: "page"
+        in: "query"
+        description: "The page of article."
+        required: true
         type: "integer"
-        x-exportParamName: "TagID"
+        x-exportParamName: "Page"
       responses:
         "200":
           description: "Successful"
@@ -179,6 +191,12 @@ paths:
         required: true
         type: "integer"
         x-exportParamName: "UserID"
+      - name: "page"
+        in: "query"
+        description: "The page of article."
+        required: true
+        type: "integer"
+        x-exportParamName: "Page"
       responses:
         "200":
           description: "Successful"

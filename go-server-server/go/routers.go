@@ -87,7 +87,7 @@ var routes = Routes{
 	Route{
 		"GetArticleByTag",
 		strings.ToUpper("Get"),
-		"/api/article/tag/{tagID}",
+		"/api/article/tag/tag",
 		GetArticleByTag,
 	},
 
